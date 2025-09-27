@@ -1,0 +1,93 @@
+.container {
+  --container-height: 3rem;
+  --button-container-width: 3.5rem;
+
+  position: relative;
+  width: 100%;
+  height: var(--container-height);
+
+  display: flex;
+  align-items: center;
+
+  cursor: pointer;
+}
+
+.container:hover,
+.container:focus,
+.container:focus-visible {
+  background-color: var(--color-accent);
+  transition: background-color 0.3s ease;
+}
+
+/* Keeps the background color when editing input */
+.container:has(input) {
+  background-color: var(--color-accent);
+  transition: background-color 0.3s ease;
+}
+
+/* Text display */
+.container p {
+  width: 100%;
+  line-height: calc(var(--container-height) - 2 * var(--spacing-xs));
+
+  display: block;
+  box-sizing: border-box;
+
+  padding: var(--spacing-xs) var(--spacing-sm);
+  margin: 0;
+}
+
+/* Text input */
+.container input {
+  width: calc(100% - var(--button-container-width));
+
+  box-sizing: border-box;
+
+  margin: 0;
+  padding: var(--spacing-xs) var(--spacing-sm);
+
+  background-color: var(--color-accent);
+  /**/
+  /* font-family: inherit; */
+  /* color: inherit; */
+  /* font-size: inherit; */
+  /* font-style: inherit; */
+  /* font-weight: inherit; */
+  /* line-height: inherit; */
+}
+
+/* Button container */
+.buttons {
+  width: var(--button-container-width);
+  display: flex;
+  margin-left: auto;
+}
+
+.buttons > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  color: var(--color-text);
+
+  border: none;
+
+  animation: fadeIn 0.5s ease;
+}
+
+.buttons > button:hover svg {
+  /* stroke-width may not work on filled SVGs */
+  filter: drop-shadow(0 0 0.3px currentColor)
+    drop-shadow(0 0 0.3px currentColor);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
