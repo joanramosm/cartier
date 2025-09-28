@@ -5,14 +5,10 @@ const [project, setProject] = createStore({
 });
 
 const updateProjectName = (name: string) => {
-  if (import.meta.env.DEV)
-    console.log("[projectStore] Setting project name to ", name);
   setProject("projectName", name);
 };
 
 const resetProject = () => {
-  if (import.meta.env.DEV)
-    console.log("[projectStore] Resetting project to default");
   setProject({ projectName: "New Project" });
 };
 

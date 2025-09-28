@@ -54,8 +54,6 @@ export function useClickOutside(
   const { events = ["click", "touchstart"] } = options;
 
   createEffect(() => {
-    if (import.meta.env.DEV) console.log("[useClickOutside] effect run");
-
     if (options.isActive()) {
       const handleClickOutside = (e: Event) => {
         const container = containerRef();
@@ -65,9 +63,6 @@ export function useClickOutside(
         if (container && !container.contains(target)) {
           // Additional check for Shadow DOM
           if (!container.shadowRoot || !container.shadowRoot.contains(target)) {
-            if (import.meta.env.DEV) {
-              console.log("[useClickOutside] click outside detected");
-            }
             options.onClickOutside();
           }
         }
@@ -82,9 +77,6 @@ export function useClickOutside(
         events.forEach(eventType => {
           document.removeEventListener(eventType, handleClickOutside, true);
         });
-        if (import.meta.env.DEV) {
-          console.log("[useClickOutside] cleanup event listener");
-        }
       });
     }
   });

@@ -55,7 +55,7 @@ interface UseEditableStateReturn {
  *   cancelChanges
  * } = useEditableState({
  *   initialValue: "Hello",
- *   onChange: (value) => console.log("Changed to:", value),
+ *   onChange: (value) => setText(value),
  *   getCurrentValue: () => currentValue
  * });
  * ```
@@ -76,8 +76,6 @@ export function useEditableState(
   const [inputRef, setInputRef] = createSignal<HTMLInputElement | null>(null);
 
   const handleClick = () => {
-    if (import.meta.env.DEV) console.log("[useEditableState] handleClick");
-
     try {
       const currentValue = options.getCurrentValue();
       setInitialValue(currentValue);
@@ -98,22 +96,11 @@ export function useEditableState(
   };
 
   const approveChanges = (value: string) => {
-    if (import.meta.env.DEV) {
-      console.log("[useEditableState] approveChanges", value);
-    }
-
     try {
       const currentInitialValue = initialValue();
 
       if (currentInitialValue !== value) {
         options.onChange(value);
-        if (import.meta.env.DEV) {
-          console.log("[useEditableState] value changed, onChange called");
-        }
-      } else {
-        if (import.meta.env.DEV) {
-          console.log("[useEditableState] value unchanged, onChange not called");
-        }
       }
 
       setIsEditing(false);
@@ -125,7 +112,6 @@ export function useEditableState(
   };
 
   const cancelChanges = () => {
-    if (import.meta.env.DEV) console.log("[useEditableState] cancelChanges");
     setIsEditing(false);
   };
 
@@ -136,17 +122,9 @@ export function useEditableState(
       if (e.key === "Enter") {
         e.preventDefault();
         approveChanges(target.value);
-
-        if (import.meta.env.DEV) {
-          console.log("[useEditableState] Enter key pressed, changes approved");
-        }
       } else if (e.key === "Escape") {
         e.preventDefault();
         cancelChanges();
-
-        if (import.meta.env.DEV) {
-          console.log("[useEditableState] Escape key pressed, changes canceled");
-        }
       }
     } catch (error) {
       console.error("[useEditableState] Error in handleKeyDown:", error);
