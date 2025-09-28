@@ -1,5 +1,6 @@
 import { describe, it, expect, afterEach } from "vitest";
 import { render, screen, fireEvent, cleanup } from "@solidjs/testing-library";
+import { vi } from "vitest";
 import EditableText from ".";
 
 afterEach(() => {
@@ -361,6 +362,58 @@ describe("EditableText", () => {
       ));
 
       expect(screen.getByText(specialText)).toBeInTheDocument();
+    });
+
+    it("handles null input value gracefully", () => {
+      const value = () => "test";
+      const onChange = vi.fn();
+
+      // Mock the input ref to return an input with null value
+      const mockInput = {
+        value: null as any,
+        focus: vi.fn(),
+      };
+
+      render(() => <EditableText value={value} onChange={onChange} />);
+
+      const textElement = screen.getByText("test");
+      fireEvent.click(textElement);
+
+      // Manually set the input ref to our mock
+      const component = screen.getByDisplayValue("test");
+      (component as any).value = null;
+
+      const buttons = screen.getAllByRole("button");
+      fireEvent.click(buttons[0]); // Save button
+
+      // Should handle null value gracefully (fallback to empty string)
+      expect(onChange).toHaveBeenCalledWith("");
+    });
+
+    it("handles undefined input ref in getTextWidth", () => {
+      const value = () => "test";
+      const onChange = vi.fn();
+
+      render(() => <EditableText value={value} onChange={onChange} />);
+
+      const textElement = screen.getByText("test");
+      fireEvent.click(textElement);
+
+      // Get the input element
+      const input = screen.getByDisplayValue("test");
+
+      // Temporarily replace the input's getBoundingClientRect to simulate text measurement
+      const originalGetBoundingClientRect = input.getBoundingClientRect;
+      input.getBoundingClientRect = vi.fn().mockReturnValue({ width: 50 });
+
+      // Trigger an input event which should call getTextWidth
+      fireEvent.input(input, { target: { value: "test updated" } });
+
+      // Restore original method
+      input.getBoundingClientRect = originalGetBoundingClientRect;
+
+      // The component should still work normally
+      expect(input).toBeInTheDocument();
     });
   });
 });

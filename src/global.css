@@ -32,10 +32,11 @@ html {
   background-color: var(--color-bg);
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+html, body, #root {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    box-sizing: border-box;
 }
 
 /* Remove default styles on text inputs */

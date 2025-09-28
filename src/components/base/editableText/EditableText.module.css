@@ -3,7 +3,7 @@
   --button-container-width: 4rem;
 
   position: relative;
-  width: 100%;
+  /* width: 100%; */
   height: var(--container-height);
 
   display: flex;
@@ -12,48 +12,36 @@
   cursor: pointer;
 }
 
-.container:hover,
-.container:focus,
-.container:focus-visible {
-  background-color: var(--color-accent);
-  transition: background-color 0.3s ease;
-}
-
-/* Keeps the background color when editing input */
-.container:has(input) {
-  background-color: var(--color-accent);
-  transition: background-color 0.3s ease;
-}
-
 /* Text display */
 .container p {
-  width: 100%;
-  line-height: calc(var(--container-height) - 2 * var(--spacing-xs));
-
-  display: block;
+  flex: 0 0 auto;
+  width: auto;
+  /* min-width: 100px; */
+  /* max-width: 300px; */
   box-sizing: border-box;
-
-  padding: var(--spacing-xs) var(--spacing-sm);
   margin: 0;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  max-width: calc(100% - var(--button-container-width));
 }
 
 /* Text input */
 .container input {
+  flex: 0 0 auto;
   width: calc(100% - var(--button-container-width));
-
+  /* min-width: 100px; */
+  /* max-width: 300px; */
   box-sizing: border-box;
-
   margin: 0;
   padding: var(--spacing-xs) var(--spacing-sm);
-
-  background-color: var(--color-accent);
 }
 
 /* Button container */
 .buttons {
+  position: absolute;
+  top: 0.6rem;
   width: var(--button-container-width);
   display: flex;
-  margin-left: auto;
+  /* margin-left: auto; */
 
   animation: fadeIn 0.5s ease;
 }
