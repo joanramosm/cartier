@@ -1,9 +1,10 @@
 import { Component } from "solid-js";
+import { useEditableState } from "~/hooks/useEditableState"; // Adjust path as needed
+import { useClickOutside } from "~/hooks/useClickOutside";
+import Button from "~/components/base/button";
 import styles from "./EditableText.module.css";
 import CancelIcon from "~/icons/cancelIcon";
 import CheckIcon from "~/icons/checkIcon";
-import { useEditableState } from "~/hooks/useEditableState"; // Adjust path as needed
-import { useClickOutside } from "~/hooks/useClickOutside";
 
 interface EditableTextProps {
   value: () => string;
@@ -52,16 +53,16 @@ const EditableText: Component<EditableTextProps> = (props) => {
             placeholder={props.placeholder}
             class="clean-text-input"
           />
-          {props.showButtons !== false && (
-            <div class={styles.buttons}>
-              <button onClick={handleApprove} type="button">
-                <CheckIcon />
-              </button>
-              <button onClick={cancelChanges} type="button">
-                <CancelIcon />
-              </button>
-            </div>
-          )}
+           {props.showButtons !== false && (
+             <div class={styles.buttons}>
+               <Button onClick={handleApprove} variant="icon" size="extraSmall">
+                 <CheckIcon />
+               </Button>
+               <Button onClick={cancelChanges} variant="icon" size="extraSmall">
+                 <CancelIcon />
+               </Button>
+             </div>
+           )}
         </>
       ) : (
         <p onclick={handleClick} class="truncate-text">

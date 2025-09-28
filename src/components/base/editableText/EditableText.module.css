@@ -1,6 +1,6 @@
 .container {
   --container-height: 3rem;
-  --button-container-width: 3.5rem;
+  --button-container-width: 4rem;
 
   position: relative;
   width: 100%;
@@ -47,13 +47,6 @@
   padding: var(--spacing-xs) var(--spacing-sm);
 
   background-color: var(--color-accent);
-  /**/
-  /* font-family: inherit; */
-  /* color: inherit; */
-  /* font-size: inherit; */
-  /* font-style: inherit; */
-  /* font-weight: inherit; */
-  /* line-height: inherit; */
 }
 
 /* Button container */
@@ -61,26 +54,8 @@
   width: var(--button-container-width);
   display: flex;
   margin-left: auto;
-}
-
-.buttons > button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  cursor: pointer;
-
-  color: var(--color-text);
-
-  border: none;
 
   animation: fadeIn 0.5s ease;
-}
-
-.buttons > button:hover svg {
-  /* stroke-width may not work on filled SVGs */
-  filter: drop-shadow(0 0 0.3px currentColor)
-    drop-shadow(0 0 0.3px currentColor);
 }
 
 @keyframes fadeIn {

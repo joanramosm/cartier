@@ -6,11 +6,10 @@
 
   --color-bg: #faf9f9;
   --color-text: #22333b;
+  --color-text-lighter: #395563;
   --color-border: #000000;
   --color-accent: #f8edeb;
   --color-accent-darker: #e6d5d0;
-  --color-confirm: #81c995;
-  --color-cancel: #f28b82;
 
   --background-transition: 0.3s ease;
 
