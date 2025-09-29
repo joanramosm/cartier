@@ -14,7 +14,7 @@ const App: Component = () => {
               placeholder="New Project"
               showButtons={true}
               value={() => project.projectName}
-              maxLength={120}
+              maxLength={60}
             />
           </div>
           <div class={styles.bottom}>Bottom</div>

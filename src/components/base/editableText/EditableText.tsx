@@ -1,4 +1,4 @@
-import { Component, createSignal, createMemo, onMount, onCleanup } from "solid-js";
+import { Component,  createMemo,  onCleanup } from "solid-js";
 import { useEditableState } from "~/hooks/useEditableState";
 import { useClickOutside } from "~/hooks/useClickOutside";
 import { useDynamicButtonPosition } from "~/hooks/useDynamicButtonPosition";
@@ -19,10 +19,10 @@ interface EditableTextProps {
   placeholder?: string;
   /** Whether to show the action buttons (default: true) */
   showButtons?: boolean;
+  /** Button size */
+  buttonSize?: "small" | "medium" | "large";
   /** Maximum character length for input */
   maxLength?: number;
-  /** Additional CSS classes */
-  class?: string;
 }
 
 /**
@@ -113,7 +113,7 @@ const EditableText: Component<EditableTextProps> = (props) => {
         containerRef = el;
         setContainerRef(el);
       }}
-      class={`${styles.container} ${props.class || ''}`}
+      class={styles.container}
     >
       {isEditing() ? (
         <>
@@ -127,7 +127,6 @@ const EditableText: Component<EditableTextProps> = (props) => {
             onInput={updatePosition}
             placeholder={props.placeholder}
             maxLength={props.maxLength}
-            variant="clean"
             aria-label={`Edit ${props.placeholder || 'text'}`}
           />
           {props.showButtons !== false && (
@@ -139,16 +138,16 @@ const EditableText: Component<EditableTextProps> = (props) => {
             >
               <Button
                 onClick={handleApprove}
-                variant="icon"
-                size="extraSmall"
+                variant="minimal"
+                size={props.buttonSize}
                 aria-label="Save changes"
               >
                 <CheckIcon />
               </Button>
               <Button
                 onClick={cancelChanges}
-                variant="icon"
-                size="extraSmall"
+                variant="minimal"
+                size={props.buttonSize}
                 aria-label="Cancel changes"
               >
                 <CancelIcon />

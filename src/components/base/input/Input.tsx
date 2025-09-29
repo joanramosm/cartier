@@ -23,34 +23,18 @@ interface InputProps {
   onInputEvent?: (event: Event) => void;
   /** Placeholder text */
   placeholder?: string;
-  /** Whether the input is disabled */
-  disabled?: boolean;
   /** Maximum character length */
   maxLength?: number;
-  /** Input type */
-  type?: "text" | "password" | "email" | "search" | "tel" | "url" | "number";
-  /** Size variant */
-  size?: "small" | "medium" | "large";
-  /** Visual variant */
-  variant?: "default" | "clean";
   /** Ref callback for accessing the input element */
   ref?: (element: HTMLInputElement) => void;
-  /** Additional CSS classes */
-  class?: string;
   /** ARIA label for accessibility */
   'aria-label'?: string;
   /** ARIA described by */
   'aria-describedby'?: string;
   /** Whether the input is required */
   required?: boolean;
-  /** Minimum value (for number inputs) */
-  min?: number | string;
-  /** Maximum value (for number inputs) */
-  max?: number | string;
-  /** Step value (for number inputs) */
-  step?: number | string;
-  /** Pattern for validation */
-  pattern?: string;
+  /** Additional class names */
+  class?: string;
 }
 
 /**
@@ -59,21 +43,12 @@ interface InputProps {
  * @example
  * ```tsx
  * <Input
- *   type="email"
- *   placeholder="Enter your email"
+ *   placeholder="Placeholder username"
  *   onInput={(value) => setEmail(value)}
  *   required
- *   aria-label="Email address"
+ *   aria-label="Username"
  * />
  *
- * <Input
- *   type="number"
- *   min={0}
- *   max={100}
- *   step={5}
- *   onChange={(value) => setQuantity(Number(value))}
- * />
- * ```
  */
 const Input: Component<InputProps> = (props) => {
   const [local, inputProps, others] = splitProps(props, [
@@ -86,26 +61,13 @@ const Input: Component<InputProps> = (props) => {
     'onFocus',
     'onInputEvent',
     'placeholder',
-    'disabled',
     'maxLength',
-    'type',
-    'size',
-    'variant',
     'ref',
-    'class'
   ], [
     'aria-label',
     'aria-describedby',
     'required',
-    'min',
-    'max',
-    'step',
-    'pattern'
   ]);
-
-  const size = () => local.size || "medium";
-  const variant = () => local.variant || "default";
-  const type = () => local.type || "text";
 
   const handleInput = (event: Event) => {
     const target = event.currentTarget as HTMLInputElement;
@@ -129,7 +91,7 @@ const Input: Component<InputProps> = (props) => {
   return (
     <input
       ref={local.ref}
-      type={type()}
+      type="text"
       value={local.value ?? ''}
       onInput={handleInputEvent}
       onChange={handleChange}
@@ -138,9 +100,8 @@ const Input: Component<InputProps> = (props) => {
       onClick={local.onClick}
       onFocus={local.onFocus}
       placeholder={local.placeholder}
-      disabled={local.disabled}
       maxLength={local.maxLength}
-      class={`${styles.input} ${styles[size()]} ${styles[variant()]} ${local.class || ''}`}
+      class={props.class ? `${styles.input} ${props.class}` : styles.input}
       {...inputProps}
       {...others}
     />

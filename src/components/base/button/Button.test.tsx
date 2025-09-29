@@ -109,79 +109,10 @@ describe("Button", () => {
       render(() => <Button>Focusable</Button>);
 
       const button = screen.getByRole("button");
-      
+
       // Focus the button
       button.focus();
       expect(button).toHaveFocus();
-    });
-  });
-
-  describe("Keyboard Accessibility", () => {
-    it("calls onClick when Enter key is pressed", () => {
-      const handleClick = vi.fn();
-      render(() => <Button onClick={handleClick}>Enter Test</Button>);
-
-      const button = screen.getByRole("button");
-      fireEvent.keyDown(button, { key: "Enter" });
-
-      expect(handleClick).toHaveBeenCalledTimes(1);
-    });
-
-    it("calls onClick when Space key is pressed", () => {
-      const handleClick = vi.fn();
-      render(() => <Button onClick={handleClick}>Space Test</Button>);
-
-      const button = screen.getByRole("button");
-      fireEvent.keyDown(button, { key: " " });
-
-      expect(handleClick).toHaveBeenCalledTimes(1);
-    });
-
-    it("does not call onClick when other keys are pressed", () => {
-      const handleClick = vi.fn();
-      render(() => <Button onClick={handleClick}>Other Key Test</Button>);
-
-      const button = screen.getByRole("button");
-      fireEvent.keyDown(button, { key: "a" });
-
-      expect(handleClick).not.toHaveBeenCalled();
-    });
-
-    it("does not call onClick when disabled and Enter is pressed", () => {
-      const handleClick = vi.fn();
-      render(() => <Button onClick={handleClick} disabled>Disabled Enter</Button>);
-
-      const button = screen.getByRole("button");
-      fireEvent.keyDown(button, { key: "Enter" });
-
-      expect(handleClick).not.toHaveBeenCalled();
-    });
-  });
-
-  describe("Loading State", () => {
-    it("shows loading spinner when loading is true", () => {
-      render(() => <Button loading>Loading Button</Button>);
-
-      const button = screen.getByRole("button");
-      expect(button).toBeDisabled();
-      expect(button.textContent).toContain("⟳");
-    });
-
-    it("applies loading class when loading", () => {
-      render(() => <Button loading>Loading</Button>);
-
-      const button = screen.getByRole("button");
-      expect(button.className).toContain("loading");
-    });
-
-    it("does not call onClick when loading", () => {
-      const handleClick = vi.fn();
-      render(() => <Button onClick={handleClick} loading>Loading</Button>);
-
-      const button = screen.getByRole("button");
-      fireEvent.click(button);
-
-      expect(handleClick).not.toHaveBeenCalled();
     });
   });
 

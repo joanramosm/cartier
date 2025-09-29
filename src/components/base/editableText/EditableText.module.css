@@ -3,54 +3,60 @@
   --button-container-width: 4rem;
 
   position: relative;
-  /* width: 100%; */
   height: var(--container-height);
 
   display: flex;
   align-items: center;
-
-  cursor: pointer;
 }
 
 /* Text display */
 .container p {
   flex: 0 0 auto;
   width: auto;
-  /* min-width: 100px; */
-  /* max-width: 300px; */
   box-sizing: border-box;
   margin: 0;
   padding: var(--spacing-xs) var(--spacing-sm);
   max-width: calc(100% - var(--button-container-width));
+  cursor: pointer;
 }
 
 /* Text input */
 .container input {
   flex: 0 0 auto;
   width: calc(100% - var(--button-container-width));
-  /* min-width: 100px; */
-  /* max-width: 300px; */
   box-sizing: border-box;
   margin: 0;
   padding: var(--spacing-xs) var(--spacing-sm);
+  cursor: pointer;
 }
 
 /* Button container */
 .buttons {
   position: absolute;
-  top: 0.6rem;
+  top: calc(var(--font-size-xl) / 2);
   width: var(--button-container-width);
   display: flex;
-  /* margin-left: auto; */
 
-  animation: fadeIn 0.5s ease;
+  /* animation: fadein 2s ease 2s; */
+}
+
+.buttons button:first-child {
+  animation: fadeIn 0.2s ease;
+}
+
+.buttons button:nth-child(2) {
+  opacity: 0;
+  animation: fadeIn 0.2s ease 0.1s;
+  animation-fill-mode: forwards;
 }
 
 @keyframes fadeIn {
   from {
+    transform: translateX(-50%);
     opacity: 0;
   }
   to {
+    transform: inherit;
     opacity: 1;
   }
 }

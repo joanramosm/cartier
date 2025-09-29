@@ -10,16 +10,20 @@
   width: 100%;
   height: 100%;
   background-color: var(--color-accent);
-  border-radius: var(--border-radius-l);
+  border-radius: var(--border-radius);
 }
 
 .top {
-  position: relative;
-  top: 0;
+  position: absolute;
+  width: inherit;
+  top: calc(var(--wrapper-padding) / 2);
+  left: var(--wrapper-padding);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
 }
 
 .bottom {
-  position: absolute;
-  bottom: 0;
-  right: 0;
+  position: relative;
+  bottom: calc(var(--wrapper-padding) / 2);
+  right: var(--wrapper-padding);
 }

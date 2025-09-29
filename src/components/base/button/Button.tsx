@@ -10,17 +10,9 @@ interface ButtonProps {
   /** Click handler */
   onClick?: () => void;
   /** Visual variant of the button */
-  variant?: "primary" | "secondary" | "icon";
+  variant?: "primary" | "secondary" | "minimal";
   /** Size of the button */
-  size?: "extraSmall" | "small" | "medium" | "large";
-  /** Whether the button is disabled */
-  disabled?: boolean;
-  /** HTML button type */
-  type?: "button" | "submit" | "reset";
-  /** Loading state */
-  loading?: boolean;
-  /** Additional CSS classes */
-  class?: string;
+  size?: "small" | "medium" | "large";
   /** ARIA label for accessibility */
   'aria-label'?: string;
 }
@@ -49,49 +41,24 @@ const Button: Component<ButtonProps> = (props) => {
     'children',
     'onClick',
     'variant',
-    'size',
-    'disabled',
-    'type',
-    'loading',
-    'class'
   ]);
 
   const variant = () => local.variant || "primary";
-  const size = () => local.size || "medium";
-  const isDisabled = () => local.disabled || local.loading;
+  const size = () => props.size || "medium";
 
   const handleClick = () => {
-    if (!isDisabled() && local.onClick) {
-      local.onClick();
-    }
-  };
-
-  const handleKeyDown = (e: KeyboardEvent) => {
-    // Handle keyboard activation for accessibility
-    if ((e.key === 'Enter' || e.key === ' ') && !isDisabled()) {
-      e.preventDefault();
-      local.onClick?.();
-    }
+    local.onClick?.();
   };
 
   return (
     <button
-      class={`${styles.button} ${styles[variant()]} ${styles[size()]} ${local.class || ''} ${local.loading ? styles.loading : ''}`}
+      class={`${styles.button} ${styles[variant()]} ${styles[size()]} `}
       onClick={handleClick}
-      onKeyDown={handleKeyDown}
-      disabled={isDisabled()}
-      type={local.type || "button"}
+      type="button"
       aria-label={props['aria-label']}
       {...others}
     >
-      {local.loading && (
-        <span class={styles.loadingSpinner} aria-hidden="true">
-          ⟳
-        </span>
-      )}
-      <span class={local.loading ? styles.loadingContent : ''}>
         {local.children}
-      </span>
     </button>
   );
 };

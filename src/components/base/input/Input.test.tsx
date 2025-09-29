@@ -39,59 +39,6 @@ describe("Input", () => {
       const input = screen.getByRole("textbox");
       expect(input).toHaveAttribute("type", "text");
     });
-
-    it("renders password type", () => {
-      render(() => <Input type="password" />);
-
-      const input = document.querySelector('input[type="password"]') as HTMLInputElement;
-      expect(input).toHaveAttribute("type", "password");
-    });
-
-    it("renders email type", () => {
-      render(() => <Input type="email" />);
-
-      const input = screen.getByRole("textbox");
-      expect(input).toHaveAttribute("type", "email");
-    });
-  });
-
-  describe("Sizes", () => {
-    it("applies medium size by default", () => {
-      render(() => <Input />);
-
-      const input = screen.getByRole("textbox");
-      expect(input.className).toContain("medium");
-    });
-
-    it("applies small size", () => {
-      render(() => <Input size="small" />);
-
-      const input = screen.getByRole("textbox");
-      expect(input.className).toContain("small");
-    });
-
-    it("applies large size", () => {
-      render(() => <Input size="large" />);
-
-      const input = screen.getByRole("textbox");
-      expect(input.className).toContain("large");
-    });
-  });
-
-  describe("Variants", () => {
-    it("applies default variant by default", () => {
-      render(() => <Input />);
-
-      const input = screen.getByRole("textbox");
-      expect(input.className).toContain("default");
-    });
-
-    it("applies clean variant", () => {
-      render(() => <Input variant="clean" />);
-
-      const input = screen.getByRole("textbox");
-      expect(input.className).toContain("clean");
-    });
   });
 
   describe("Interactions", () => {
