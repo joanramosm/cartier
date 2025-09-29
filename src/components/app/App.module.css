@@ -15,15 +15,16 @@
 
 .top {
   position: absolute;
-  width: inherit;
-  top: calc(var(--wrapper-padding) / 2);
-  left: var(--wrapper-padding);
+  width: calc(100% - var(--wrapper-padding) * 2);
+  top: calc(var(--wrapper-padding) / 4);
+  padding: var(--wrapper-padding);
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-bold);
 }
 
 .bottom {
-  position: relative;
-  bottom: calc(var(--wrapper-padding) / 2);
-  right: var(--wrapper-padding);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
 }

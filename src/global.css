@@ -3,6 +3,10 @@
   --font-size-lg: 1.25rem;
   --font-size-xl: 1.5rem;
 
+  --icon-size: 1.5rem;
+  --icon-size-lg: 2rem;
+  --icon-size-xl: 3rem;
+
   --font-weight-base: 300;
   --font-weight-bold: 400;
   --font-weight-bolder: 600;
@@ -15,7 +19,8 @@
   --color-text-lighter: #395563;
   --color-border: #000000;
   --color-accent: #f8edeb;
-  --color-accent-darker: #e6d5d0;
+  --color-accent-dark: #f2ddd9;
+  --color-accent-darker: #eacac4;
 
   --background-transition: 0.3s ease;
 

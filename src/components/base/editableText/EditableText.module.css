@@ -1,9 +1,7 @@
 .container {
-  --container-height: 3rem;
   --button-container-width: 4rem;
 
   position: relative;
-  height: var(--container-height);
 
   display: flex;
   align-items: center;
@@ -33,11 +31,8 @@
 /* Button container */
 .buttons {
   position: absolute;
-  top: calc(var(--font-size-xl) / 2);
   width: var(--button-container-width);
   display: flex;
-
-  /* animation: fadein 2s ease 2s; */
 }
 
 .buttons button:first-child {

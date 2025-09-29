@@ -1,6 +1,7 @@
 import type { Component } from "solid-js";
 import { project, updateProjectName } from "~/store/projectStore";
-import EditableText from "~/components/base/editableText/";
+import { EditableText } from "~/components/base/";
+import Footer from "~/components/app/footer";
 import styles from "./App.module.css";
 
 const App: Component = () => {
@@ -17,7 +18,9 @@ const App: Component = () => {
               maxLength={60}
             />
           </div>
-          <div class={styles.bottom}>Bottom</div>
+          <div class={styles.bottom}>
+          <Footer />
+          </div>
         </div>
       </div>
     </>
