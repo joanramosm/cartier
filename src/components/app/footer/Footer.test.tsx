@@ -11,14 +11,14 @@ describe("Footer", () => {
     it("renders the footer menu", () => {
       render(() => <Footer />);
 
-      expect(screen.getByText("Hello world!")).toBeInTheDocument();
+      expect(screen.getByText("Cool images")).toBeInTheDocument();
     });
 
     it("renders the handle with caret down icon initially", () => {
       render(() => <Footer />);
 
-      const handle = screen.getByRole("button");
-      expect(handle).toBeInTheDocument();
+      const buttons = screen.getAllByRole("button");
+      expect(buttons.length).toBeGreaterThan(0);
     });
   });
 
@@ -26,8 +26,10 @@ describe("Footer", () => {
     it("toggles collapsed state when handle is clicked", () => {
       render(() => <Footer />);
 
-      const handle = screen.getByRole("button");
-      const content = screen.getByText("Hello world!");
+      const buttons = screen.getAllByRole("button");
+      const handle = buttons[0]; // Assuming handle is first
+      const gallery = screen.getByText("Cool images");
+      const content = gallery.parentElement!;
 
       // Initially not collapsed
       expect(content.className).not.toContain("hidden");

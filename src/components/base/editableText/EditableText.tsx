@@ -1,8 +1,9 @@
-import { Component,  createMemo,  onCleanup } from "solid-js";
+import { Component, createMemo, onCleanup } from "solid-js";
 import { useEditableState } from "~/hooks/useEditableState";
 import { useClickOutside } from "~/hooks/useClickOutside";
 import { useDynamicButtonPosition } from "~/hooks/useDynamicButtonPosition";
 import { Button, Input } from "~/components/base";
+import Tooltip from "../tooltip";
 import CancelIcon from "~/icons/cancelIcon";
 import CheckIcon from "~/icons/checkIcon";
 import styles from "./EditableText.module.css";
@@ -23,6 +24,10 @@ interface EditableTextProps {
   buttonSize?: "small" | "medium" | "large";
   /** Maximum character length for input */
   maxLength?: number;
+  /** Tooltip for display text */
+  displayTooltip?: string;
+  /** Tooltip delay for display text in milliseconds */
+  displayTooltipDelay?: number;
 }
 
 /**
@@ -36,6 +41,12 @@ interface EditableTextProps {
  *   onChange={setUserName}
  *   placeholder="Enter name"
  *   maxLength={50}
+ *   displayTooltip="Click to edit"
+ *   displayTooltipDelay={500}
+ *   saveTooltip="Save changes"
+ *   saveTooltipDelay={300}
+ *   cancelTooltip="Discard changes"
+ *   cancelTooltipDelay={300}
  * />
  * ```
  */
@@ -72,11 +83,11 @@ const EditableText: Component<EditableTextProps> = (props) => {
 
       // Use a cached measurement element for better performance
       if (!textMeasureElement) {
-        textMeasureElement = document.createElement('span');
-        textMeasureElement.style.position = 'absolute';
-        textMeasureElement.style.visibility = 'hidden';
-        textMeasureElement.style.whiteSpace = 'pre';
-        textMeasureElement.style.font = 'inherit';
+        textMeasureElement = document.createElement("span");
+        textMeasureElement.style.position = "absolute";
+        textMeasureElement.style.visibility = "hidden";
+        textMeasureElement.style.whiteSpace = "pre";
+        textMeasureElement.style.font = "inherit";
         document.body.appendChild(textMeasureElement);
       }
 
@@ -127,7 +138,7 @@ const EditableText: Component<EditableTextProps> = (props) => {
             onInput={updatePosition}
             placeholder={props.placeholder}
             maxLength={props.maxLength}
-            aria-label={`Edit ${props.placeholder || 'text'}`}
+            aria-label={`Edit ${props.placeholder || "text"}`}
           />
           {props.showButtons !== false && (
             <div
@@ -141,33 +152,67 @@ const EditableText: Component<EditableTextProps> = (props) => {
                 variant="minimal"
                 size={props.buttonSize}
                 aria-label="Save changes"
+                padding="small"
               >
-                <CheckIcon />
+                <Tooltip
+                  content="Save changes"
+                  delay={props.displayTooltipDelay}
+                  position="bottom"
+                >
+                  <CheckIcon />
+                </Tooltip>
               </Button>
               <Button
                 onClick={cancelChanges}
                 variant="minimal"
                 size={props.buttonSize}
                 aria-label="Cancel changes"
+                padding="small"
               >
-                <CancelIcon />
+                <Tooltip
+                  content="Discard changes"
+                  delay={props.displayTooltipDelay}
+                  position="bottom"
+                >
+                  <CancelIcon />
+                </Tooltip>
               </Button>
             </div>
           )}
         </>
-      ) : (
+      ) : props.displayTooltip ? (
         <p
           onclick={handleClick}
-          class="truncate-text"
           role="button"
           tabIndex={0}
           onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
+            if (e.key === "Enter" || e.key === " ") {
               e.preventDefault();
               handleClick();
             }
           }}
-          aria-label={`Click to edit ${props.placeholder || 'text'}`}
+          aria-label={`Click to edit ${props.placeholder || "text"}`}
+        >
+          <Tooltip
+            content={props.displayTooltip}
+            delay={props.displayTooltipDelay}
+            position="bottom"
+          >
+            {props.value() || props.placeholder}
+          </Tooltip>
+        </p>
+      ) : (
+        <p
+          onclick={handleClick}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              handleClick();
+            }
+          }}
+          aria-label={`Click to edit ${props.placeholder || "text"}`}
         >
           {props.value() || props.placeholder}
         </p>

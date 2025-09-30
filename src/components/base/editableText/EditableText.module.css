@@ -16,6 +16,7 @@
   padding: var(--spacing-xs) var(--spacing-sm);
   max-width: calc(100% - var(--button-container-width));
   cursor: pointer;
+  text-wrap: nowrap;
 }
 
 /* Text input */

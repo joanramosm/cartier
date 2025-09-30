@@ -13,6 +13,8 @@ interface ButtonProps {
   variant?: "primary" | "secondary" | "minimal";
   /** Size of the button */
   size?: "small" | "medium" | "large";
+  /** Padding level */
+  padding?: "none" | "small" | "medium" | "large";
   /** ARIA label for accessibility */
   'aria-label'?: string;
 }
@@ -27,12 +29,8 @@ interface ButtonProps {
  *   Click me
  * </Button>
  *
- * <Button variant="icon" size="small" aria-label="Delete item">
+ * <Button variant="icon" size="small" aria-label="Delete item" padding="small">
  *   <DeleteIcon />
- * </Button>
- *
- * <Button loading={true} disabled>
- *   Processing...
  * </Button>
  * ```
  */
@@ -41,18 +39,26 @@ const Button: Component<ButtonProps> = (props) => {
     'children',
     'onClick',
     'variant',
+    'size',
+    'padding',
   ]);
 
   const variant = () => local.variant || "primary";
   const size = () => props.size || "medium";
+  const padding = () => local.padding || "medium";
 
   const handleClick = () => {
     local.onClick?.();
   };
 
-  return (
+  const button = (
     <button
-      class={`${styles.button} ${styles[variant()]} ${styles[size()]} `}
+      class={styles.button}
+      classList={{
+        [styles[variant()]]: true,
+        [styles[size()]]: true,
+        [styles[`padding-${padding()}`]]: true,
+      }}
       onClick={handleClick}
       type="button"
       aria-label={props['aria-label']}
@@ -61,6 +67,8 @@ const Button: Component<ButtonProps> = (props) => {
         {local.children}
     </button>
   );
+
+  return button;
 };
 
 export default Button;

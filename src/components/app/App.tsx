@@ -16,6 +16,8 @@ const App: Component = () => {
               showButtons={true}
               value={() => project.projectName}
               maxLength={60}
+              displayTooltip="Click to edit"
+              displayTooltipDelay={500}
             />
           </div>
           <div class={styles.bottom}>
